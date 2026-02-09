@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Web Fighter</title>
+    <script>
+        window.addEventListener('error', function (e) {
+            const consoleDiv = document.getElementById('error-console');
+            if (consoleDiv) {
+                consoleDiv.style.display = 'block';
+                consoleDiv.textContent += `[ERROR] ${e.message} at ${e.filename}:${e.lineno}\n`;
+            }
+        });
+        window.addEventListener('unhandledrejection', function (e) {
+            const consoleDiv = document.getElementById('error-console');
+            if (consoleDiv) {
+                consoleDiv.style.display = 'block';
+                consoleDiv.textContent += `[PROMISE] ${e.reason}\n`;
+            }
+        });
+    </script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div id="error-console"></div>
+
+    <!-- 加载屏幕 -->
+    <div id="loading-screen">
+        <div class="loading-content">
+            <h1>3D 街头格斗</h1>
+            <div class="loading-spinner"></div>
+            <p class="loading-text">正在加载角色模型...</p>
+            <p class="loading-hint">机器人 vs 特种兵</p>
+            <button id="skip-loading"
+                style="margin-top: 20px; padding: 10px 20px; font-size: 16px; cursor: pointer; background: #00ffff; border: none; border-radius: 5px;">
+                跳过加载
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // 跳过加载按钮
+        document.getElementById('skip-loading').addEventListener('click', () => {
+            const loadingScreen = document.getElementById('loading-screen');
+            if (loadingScreen) {
+                loadingScreen.classList.add('hidden');
+                setTimeout(() => loadingScreen.remove(), 500);
+            }
+        });
+
+        // 10秒后自动隐藏（防止卡住）
+        setTimeout(() => {
+            const loadingScreen = document.getElementById('loading-screen');
+            if (loadingScreen && !loadingScreen.classList.contains('hidden')) {
+                console.log('自动隐藏加载屏幕（超时）');
+                loadingScreen.classList.add('hidden');
+                setTimeout(() => loadingScreen.remove(), 500);
+            }
+        }, 10000);
+    </script>
+
+    <div id="ui-layer">
+        <div id="hud-top">
+            <div class="health-bar-container">
+                <div id="p1-health" class="health-bar"></div>
+            </div>
+            <div id="timer">60</div>
+            <div id="level-indicator" style="font-size: 30px; align-self: center;">LVL 1</div>
+            <div class="health-bar-container">
+                <div id="p2-health" class="health-bar"></div>
+            </div>
+        </div>
+        <div id="center-message">FIGHT!</div>
+        <div id="controls-hint">WASD: 移动 | J: 拳 | K: 腿 | L: 防御 | SPACE: 跳跃</div>
+    </div>
+
+    <!-- Import Three.js -->
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+            }
+        }
+    </script>
+    <script type="module" src="game.js"></script>
+</body>
+
+</html>

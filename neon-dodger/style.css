@@ -1,0 +1,214 @@
+:root {
+    --bg-color: #050508;
+    --accent-blue: #00f2ff;
+    --accent-pink: #ff00ea;
+    --danger-red: #ff3c3c;
+    --text-white: #ffffff;
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --glow-shadow: 0 0 15px rgba(0, 242, 255, 0.5);
+    --font-main: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body, html {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: var(--bg-color);
+    font-family: var(--font-main);
+    color: var(--text-white);
+}
+
+#game-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: radial-gradient(circle at center, #0f101a 0%, #050508 100%);
+}
+
+#gameCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* UI Overlay Styles */
+.overlay {
+    position: absolute;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgba(5, 5, 8, 0.7);
+    backdrop-filter: blur(8px);
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.overlay.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.menu-content {
+    text-align: center;
+    animation: fadeInScale 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.menu-content.hidden {
+    display: none;
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Typography */
+h1.glitch-text {
+    font-size: clamp(3rem, 10vw, 6rem);
+    font-weight: 900;
+    letter-spacing: -2px;
+    margin-bottom: 0.5rem;
+    color: var(--text-white);
+    text-shadow: 
+        2px 0 var(--accent-blue), 
+        -2px 0 var(--accent-pink);
+    position: relative;
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 3rem;
+    letter-spacing: 1px;
+}
+
+/* Buttons */
+.glass-btn {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    padding: 1rem 3rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: white;
+    cursor: pointer;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    outline: none;
+}
+
+.glass-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: var(--accent-blue);
+    box-shadow: var(--glow-shadow);
+    transform: translateY(-2px);
+}
+
+.glass-btn:active {
+    transform: translateY(1px);
+}
+
+.glass-btn.primary {
+    background: linear-gradient(135deg, rgba(0, 242, 255, 0.3), rgba(255, 0, 234, 0.3));
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* HUD */
+#hud {
+    position: absolute;
+    top: 2rem;
+    left: 2rem;
+    z-index: 5;
+    transition: opacity 0.3s ease;
+}
+
+#hud.hidden {
+    opacity: 0;
+}
+
+.score-counter {
+    display: flex;
+    flex-direction: column;
+}
+
+.score-counter .label {
+    font-size: 0.8rem;
+    font-weight: 900;
+    color: var(--accent-blue);
+    letter-spacing: 2px;
+    margin-bottom: -5px;
+}
+
+#current-score {
+    font-size: 2.5rem;
+    font-weight: 900;
+    font-variant-numeric: tabular-nums;
+}
+
+/* Game Over Stats */
+.score-display, .high-score-display {
+    margin: 1.5rem 0;
+}
+
+.score-display .label, .high-score-display .label {
+    display: block;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.score-display .value {
+    font-size: 4rem;
+    font-weight: 900;
+    display: block;
+}
+
+.high-score-display .value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--accent-pink);
+}
+
+.controls-hint {
+    margin-top: 2rem;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.3);
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    #hud {
+        top: 1rem;
+        left: 1rem;
+    }
+    #current-score {
+        font-size: 1.8rem;
+    }
+}

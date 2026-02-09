@@ -1,0 +1,158 @@
+body {
+    margin: 0;
+    overflow: hidden;
+    background-color: #111;
+    font-family: sans-serif;
+}
+
+canvas {
+    display: block;
+}
+
+#error-console {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.8);
+    color: #ff5555;
+    font-family: monospace;
+    padding: 20px;
+    pointer-events: none;
+    overflow-y: auto;
+    z-index: 9999;
+    display: none;
+    white-space: pre-wrap;
+}
+
+#ui-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 9999;
+}
+
+#hud-top {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    font-family: 'Impact', sans-serif;
+    color: white;
+    text-shadow: 2px 2px 0 #000;
+}
+
+.health-bar-container {
+    width: 40%;
+    height: 30px;
+    background: #333;
+    border: 2px solid #fff;
+    position: relative;
+}
+
+.health-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #ff3333, #ff6666);
+    width: 100%;
+    transition: width 0.2s;
+}
+
+#p2-health {
+    background: linear-gradient(90deg, #3366ff, #6699ff);
+}
+
+#timer {
+    font-size: 48px;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 0 10px;
+}
+
+#center-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Impact', sans-serif;
+    font-size: 80px;
+    color: #ffcc00;
+    text-shadow: 4px 4px 0 #000;
+    text-align: center;
+    display: none;
+}
+
+#controls-hint {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    color: rgba(255, 255, 255, 0.5);
+    font-family: monospace;
+}
+
+/* 加载屏幕 */
+#loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    transition: opacity 0.5s ease-out;
+}
+
+#loading-screen.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.loading-content {
+    text-align: center;
+    color: white;
+}
+
+.loading-content h1 {
+    font-family: 'Impact', sans-serif;
+    font-size: 60px;
+    margin: 0 0 30px 0;
+    text-shadow: 3px 3px 0 #000;
+    background: linear-gradient(45deg, #00ffff, #ff00ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.loading-spinner {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 20px;
+    border: 8px solid rgba(255, 255, 255, 0.1);
+    border-top: 8px solid #00ffff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading-text {
+    font-size: 24px;
+    margin: 10px 0;
+    font-family: sans-serif;
+}
+
+.loading-hint {
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.6);
+    margin: 5px 0;
+}
